@@ -5,8 +5,6 @@ class RegEx {
   static final RegExp nonNumber = RegExp(r'[^0-9]');
 }
 
-
-
 class Calculator {
   int add(String value) {
     if (value.isEmpty) {
@@ -23,35 +21,26 @@ class Calculator {
       return 0;
     }
 
+    var negativeIntegerList = [];
+    var integerList =
+        parsedList.where((n) {
+          if (n.isNegativeInteger()) {
+            negativeIntegerList.add(n);
+            return false;
+          }
 
+          return n.isInteger();
+        }).toList();
 
-    // var charList = value.runes.map((c) => String.fromCharCode(c)).toList();
+    if (negativeIntegerList.isNotEmpty) {
+      throw Exception(
+        negativeIntegerList.length == 1
+            ? "Negative number is not allowed: ${negativeIntegerList.first}"
+            : "Negative numbers are not allowed: ${negativeIntegerList.join(', ')}",
+      );
+    }
 
-    // var number = charList.firstWhereOrNull((e) => R.number.hasMatch(e));
-    // var numberIndex = charList.indexOf(number!);
-    // var nextNumber = int.tryParse(charList[numberIndex + 1]);
-    // if (numberIndex != -1 && nextNumber != null && !nextNumber.isNaN) {
-    //   number = number + nextNumber.toString();
-    // }
-    //
-    // print(number);
-
-    // var specialCharList = [];
-    // var numberCharList =
-    // charList.where((e) {
-    //   var isNumber = R.number.hasMatch(e);
-    //   if (!isNumber) {
-    //     specialCharList.add(e);
-    //   }
-    //
-    //   return isNumber;
-    // }).toList();
-    // print(specialCharList);
-    // print(numberCharList);
-
-    // reduce method on numberCharList to sum the numbers
-
-    return 0;
+    return integerList.map((e) => e.toInteger()).reduce((a, b) => a + b);
   }
 
   List<String> parser(String value) {
@@ -80,13 +69,6 @@ class Calculator {
       var isFirstChar = cursor == 0;
       // var isLastChar = cursor == charList.length - 1;
 
-      // Handle the first character blindly
-      if (isFirstChar) {
-        temp += currentChar;
-        cursor++;
-        continue;
-      }
-
       // var previousChar = (cursor > 0) ? charList[cursor - 1] : '|';
       var nextChar = cursor != charList.length - 1 ? charList[cursor + 1] : '|';
       // var hasNegativeSign = previousChar == '-';
@@ -95,6 +77,19 @@ class Calculator {
       var isCurrentCharANumber = R.number.hasMatch(currentChar);
       var isNextCharANumber =
           cursor < charList.length - 1 && R.number.hasMatch(nextChar);
+
+      // Handle the first character blindly
+      if (isFirstChar) {
+        temp += currentChar;
+        if((isCurrentCharANumber && !isNextCharANumber) ||
+            (!isCurrentCharANumber && isNextCharANumber)){
+          tempList.add(temp);
+          temp = "";
+        }
+        cursor++;
+        continue;
+      }
+
 
       /// When to reset the temp variable
       if ((isCurrentCharANumber && !isNextCharANumber) ||
@@ -120,4 +115,10 @@ class Calculator {
   }
 }
 
+extension StringHelper on String {
+  bool isInteger() => int.tryParse(this) != null;
 
+  int toInteger() => int.parse(this);
+
+  bool isNegativeInteger() => isInteger() && startsWith('-');
+}
