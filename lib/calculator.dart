@@ -1,9 +1,5 @@
-typedef R = RegEx;
-
-class RegEx {
-  static final RegExp number = RegExp(r'[0-9]');
-  static final RegExp nonNumber = RegExp(r'[^0-9]');
-}
+import 'package:kata/regex.dart';
+import 'package:kata/string_helper.dart';
 
 class Calculator {
   int add(String value) {
@@ -48,11 +44,6 @@ class Calculator {
   }
 
   List<String> parser(String value) {
-    /// [/, /, *, *, 3, 7, 1, ,, 2, /, f, 9, 8]
-    /// previous -> *
-    /// current -> *
-    /// next -> 3
-    // find and remove \n in the string
     value = value.replaceAll('\n', '');
     var charList = value.runes.map((c) => String.fromCharCode(c)).toList();
 
@@ -64,8 +55,8 @@ class Calculator {
       return [charList.first];
     }
 
-    var cursor = 0;
-    var temp = "";
+    int cursor = 0;
+    String temp = "";
     List<String> tempList = [];
 
     while (charList.length > cursor) {
@@ -111,12 +102,4 @@ class Calculator {
 
     return tempList;
   }
-}
-
-extension StringHelper on String {
-  bool isInteger() => int.tryParse(this) != null;
-
-  int toInteger() => int.parse(this);
-
-  bool isNegativeInteger() => isInteger() && startsWith('-');
 }
