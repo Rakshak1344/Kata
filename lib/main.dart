@@ -4,7 +4,7 @@ import 'package:kata/calculator.dart';
 void main() {
   Calculator calculator = Calculator();
   // var data = calculator.parser('//**-3-71,2/f98');
-  var data = calculator.add('1,5');
+  var data = calculator.add('2+1001');
   print(data);
   runApp(const MyApp());
 }

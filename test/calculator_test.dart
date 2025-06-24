@@ -69,6 +69,12 @@ void main() {
           ),
         );
       });
+
+      /// Case 8
+      test("should return 2 when given string is '2+1001'", () {
+        var value = calculator.add("2+1001");
+        expect(value, 2);
+      });
     });
 
     group("Test Parser should return expected list", () {

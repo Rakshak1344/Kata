@@ -29,6 +29,10 @@ class Calculator {
             return false;
           }
 
+          if (n.isInteger() && n.toInteger() > 1000) {
+            return false;
+          }
+
           return n.isInteger();
         }).toList();
 
@@ -81,15 +85,14 @@ class Calculator {
       // Handle the first character blindly
       if (isFirstChar) {
         temp += currentChar;
-        if((isCurrentCharANumber && !isNextCharANumber) ||
-            (!isCurrentCharANumber && isNextCharANumber)){
+        if ((isCurrentCharANumber && !isNextCharANumber) ||
+            (!isCurrentCharANumber && isNextCharANumber)) {
           tempList.add(temp);
           temp = "";
         }
         cursor++;
         continue;
       }
-
 
       /// When to reset the temp variable
       if ((isCurrentCharANumber && !isNextCharANumber) ||
