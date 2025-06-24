@@ -81,12 +81,14 @@ class Calculator {
       var isCurrentCharANumber = R.number.hasMatch(currentChar);
       var isNextCharANumber =
           cursor < charList.length - 1 && R.number.hasMatch(nextChar);
+      var shouldReset =
+          (isCurrentCharANumber && !isNextCharANumber) ||
+          (!isCurrentCharANumber && isNextCharANumber);
 
       // Handle the first character blindly
       if (isFirstChar) {
         temp += currentChar;
-        if ((isCurrentCharANumber && !isNextCharANumber) ||
-            (!isCurrentCharANumber && isNextCharANumber)) {
+        if (shouldReset) {
           tempList.add(temp);
           temp = "";
         }
@@ -95,8 +97,7 @@ class Calculator {
       }
 
       /// When to reset the temp variable
-      if ((isCurrentCharANumber && !isNextCharANumber) ||
-          (!isCurrentCharANumber && isNextCharANumber)) {
+      if (shouldReset) {
         var isCurrentCharNegative = currentChar == '-';
         if (!isCurrentCharNegative) {
           temp += currentChar;
