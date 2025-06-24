@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kata/calculator.dart';
 
 void main() {
-  Calculator calculator = Calculator();
-  // var data = calculator.parser('//**-3-71,2/f98');
-  var data = calculator.add('2+1001');
-  print(data);
   runApp(const MyApp());
 }
 
