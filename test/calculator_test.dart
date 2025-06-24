@@ -1,20 +1,6 @@
-import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kata/calculator.dart';
 
-class Calculator {
-  int add(String numberString) {
-    if (numberString.isEmpty) {
-      return 0;
-    }
-
-    var intNumber = int.tryParse(numberString);
-    if (numberString.length == 1 && intNumber != null && !intNumber.isNaN) {
-      return intNumber;
-    }
-
-    return 0;
-  }
-}
 
 void main() {
   group("Calculator Test", () {
@@ -24,7 +10,7 @@ void main() {
       calculator = Calculator();
     });
 
-    group("when calling add()", () {
+    group("when calling add(value)", () {
       /// Case 1
       test("should return 0 when given string is empty", () {
         var value = calculator.add("");
@@ -33,9 +19,27 @@ void main() {
 
       /// Case 2
       test("should return 1 when given number is 1", () {
-        var value = calculator.add("10s\\910uc");
-        expect(value, 100);
+        var value = calculator.add("1");
+        expect(value, 1);
       });
+
+      /// Case 2
+      test("should return 3 when given string is '1,2'", () {
+        var value = calculator.add("1,2");
+        expect(value, 3);
+      });
+
+      // /// Case 2
+      test("should return 471 when given string is '//**371,2/f98'", () {
+        var value = calculator.parser('//**371,2/f98');
+        expect(value, ['//**', '371', ',', '2', '/f', '98']);
+      });
+
+      // test("should return 471 when given string is '//**371,2/f98'", () {
+      //   var value = calculator.parser(
+      //       ['/', '/', '3', '7', '1',',', '2', '/', 'f', '9', '8'], 0);
+      //   expect(value, ['371', '2', '9', '8']);
+      // });
     });
   });
 }
