@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kata/calculator.dart';
+import 'package:kata/features/calculator/services/calculator.dart';
 
 void main() {
   group("Calculator Test", () {
