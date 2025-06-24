@@ -71,13 +71,7 @@ class Calculator {
     while (charList.length > cursor) {
       var currentChar = charList[cursor];
       var isFirstChar = cursor == 0;
-      // var isLastChar = cursor == charList.length - 1;
-
-      // var previousChar = (cursor > 0) ? charList[cursor - 1] : '|';
       var nextChar = cursor != charList.length - 1 ? charList[cursor + 1] : '|';
-      // var hasNegativeSign = previousChar == '-';
-
-      // var isPreviousCharANumber = cursor > 0 && R.number.hasMatch(previousChar);
       var isCurrentCharANumber = R.number.hasMatch(currentChar);
       var isNextCharANumber =
           cursor < charList.length - 1 && R.number.hasMatch(nextChar);
