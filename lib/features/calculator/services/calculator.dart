@@ -1,5 +1,5 @@
-import 'package:kata/regex.dart';
-import 'package:kata/string_helper.dart';
+import 'package:kata/features/calculator/services/regex.dart';
+import 'package:kata/features/calculator/extensions/string_extension.dart';
 
 class Calculator {
   int add(String value) {
