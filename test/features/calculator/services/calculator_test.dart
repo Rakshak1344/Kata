@@ -35,9 +35,9 @@ void main() {
       });
 
       /// Case 5
-      test("should return 6 when given string is '//;\n1;2'", () {
-        var value = calculator.add("//;\n1;2");
-        expect(value, 3);
+      test("should return 6 when given string is '//;\n4;2'", () {
+        var value = calculator.add("//;\n4;2");
+        expect(value, 6);
       });
 
       /// Case 6

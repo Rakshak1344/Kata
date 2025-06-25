@@ -96,7 +96,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
   void _onCalculateTap() {
     if (_controller.text.isEmpty) {
       context.showSnackBar('Please enter a value');
-      return;
     }
 
     try {
