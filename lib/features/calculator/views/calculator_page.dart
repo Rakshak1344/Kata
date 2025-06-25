@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kata/features/calculator/extensions/buildcontext_extension.dart';
 import 'package:kata/features/calculator/services/calculator.dart';
+import 'package:kata/features/calculator/utils/delimiters.dart';
 import 'package:kata/utils/keys.dart';
 
 class CalculatorPage extends StatefulWidget {
@@ -14,16 +15,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   final _controller = TextEditingController();
 
   final FocusNode _focusNode = FocusNode();
-  List<String> delimiters = [
-    "//",
-    "[**]",
-    "\\n",
-    "//",
-    "/t",
-    "\$\$",
-    "[%%]",
-    "(&&)",
-  ];
+
   String outputValue = "";
 
   @override
@@ -41,7 +33,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
               SizedBox(height: 22),
               buildInputTextField(),
               SizedBox(height: 12),
-              Wrap(children: delimiters.map(buildDelimiterButton).toList()),
+              Wrap(
+                children: Consts.delimiters.map(buildDelimiterButton).toList(),
+              ),
               SizedBox(height: 22),
               buildCalculateButton(),
               SizedBox(height: 22),
