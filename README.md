@@ -30,3 +30,6 @@ flutter test integration_test/
 - [TDD Kata 1 by Roy Osherove](https://osherove.com/tdd-kata-1/)
 - [Incubyte Inspiration](https://www.incubyte.co/inspiration)
 
+## Nature of development
+
+- [Trunk Based Development] https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development
