@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kata/features/calculator/extensions/buildcontext_extension.dart';
 import 'package:kata/features/calculator/services/calculator.dart';
+import 'package:kata/utils/keys.dart';
 
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({super.key});
@@ -38,31 +39,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 22),
-              TextField(
-                controller: _controller,
-                focusNode: _focusNode,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                  alignLabelWithHint: true,
-                  label: Center(child: Text("Enter kata numbers to add")),
-                  // labelText: 'Enter kata numbers to add',
-                  hintText: 'e.g. 1, 2, 3',
-                ),
-              ),
+              buildInputTextField(),
               SizedBox(height: 12),
               Wrap(children: delimiters.map(buildDelimiterButton).toList()),
               SizedBox(height: 22),
-              ElevatedButton(
-                onPressed: _onCalculateTap,
-                child: Text("Calculate"),
-              ),
+              buildCalculateButton(),
               SizedBox(height: 22),
-              Text(
-                outputValue,
-                style: Theme.of(context).textTheme.headlineLarge,
-                textAlign: TextAlign.center,
-              ),
+              buildResultText(context),
             ],
           ),
         ),
@@ -70,8 +53,41 @@ class _CalculatorPageState extends State<CalculatorPage> {
     );
   }
 
+  Widget buildResultText(BuildContext context) {
+    return Text(
+      key: K.calculator.calculationResultText,
+      outputValue,
+      style: Theme.of(context).textTheme.headlineLarge,
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget buildCalculateButton() {
+    return ElevatedButton(
+      key: K.calculator.calculateButton,
+      onPressed: _onCalculateTap,
+      child: Text("Calculate"),
+    );
+  }
+
+  Widget buildInputTextField() {
+    return TextField(
+      key: K.calculator.textField,
+      controller: _controller,
+      focusNode: _focusNode,
+      keyboardType: TextInputType.number,
+      textAlign: TextAlign.center,
+      decoration: const InputDecoration(
+        alignLabelWithHint: true,
+        label: Center(child: Text("Enter kata numbers to add")),
+        hintText: 'e.g. 1, 2, 3',
+      ),
+    );
+  }
+
   Widget buildDelimiterButton(String delimiter) {
     return Padding(
+      key: K.calculator.delimiterButton(delimiter),
       padding: EdgeInsets.symmetric(horizontal: 12),
       child: OutlinedButton(
         onPressed: () {
