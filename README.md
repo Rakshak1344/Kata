@@ -2,6 +2,8 @@
 
 A Flutter application that implements kata calculator.
 
+<img src="demo.gif" width="400"  alt="Kata String Calculator Demo"/>
+
 ## Getting Started
 
 1. Setup the project by running the following command in the root project's terminal

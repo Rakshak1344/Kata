@@ -9,6 +9,41 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group("Calculator Page UI Tests", () {
+    testWidgets('should result 0 when given string is empty', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const KataApp());
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byKey(K.calculator.textField), '');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(K.calculator.calculateButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(K.calculator.calculationResultText), findsOneWidget);
+      expect(find.textContaining('Result: 0'), findsOneWidget);
+    });
+
+    testWidgets('should result 0 when given string has only delimiters', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const KataApp());
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(K.calculator.textField),
+        '//[**]\n[%%]',
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(K.calculator.calculateButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(K.calculator.calculationResultText), findsOneWidget);
+      expect(find.textContaining('Result: 0'), findsOneWidget);
+    });
+
     testWidgets('should result 3 when given \'1,2\'', (
       WidgetTester tester,
     ) async {
@@ -25,20 +60,20 @@ void main() {
       expect(find.textContaining('Result: 3'), findsOneWidget);
     });
 
-    testWidgets('should result 0 when given string is empty', (
+    testWidgets('should return 5 when given numbers are greater than 1000', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(const KataApp());
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byKey(K.calculator.textField), '');
+      await tester.enterText(find.byKey(K.calculator.textField), '2,1001,3');
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(K.calculator.calculateButton));
       await tester.pumpAndSettle();
 
       expect(find.byKey(K.calculator.calculationResultText), findsOneWidget);
-      expect(find.textContaining('Result: 0'), findsOneWidget);
+      expect(find.textContaining('Result: 5'), findsOneWidget);
     });
 
     testWidgets(
